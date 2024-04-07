@@ -1,0 +1,15 @@
+parameters:
+    level: max
+services:
+    -
+        class: Rules\Functions\ForbidEmptyRule
+        tags: [phpstan.rules.rule]
+    -
+        class: Rules\Functions\ForbidIsNullRule
+        tags: [phpstan.rules.rule]
+    -
+        class: Rules\TypesBasedOnClass\ForbidNonResponseTypeInControllerRule
+        tags: [phpstan.rules.rule]
+    -
+        class: Rules\Operators\ForbidElvisOperatorRule
+        tags: [phpstan.rules.rule]
