@@ -4,6 +4,7 @@
 /config
 /database
 /node_modules
+/.phpunit.cache
 /public
 /resources
 /routes
