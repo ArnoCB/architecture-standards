@@ -24,7 +24,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Rules\\": "src/Rules/"
+            "Rules\\": "src/Rules/",
+            "Traits\\": "src/Traits/"
         }
     },
     "autoload-dev": {
