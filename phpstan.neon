@@ -2,7 +2,7 @@ parameters:
     level: max
 services:
     -
-        class: Rules\Functions\ForbidEmptyRule
+        class: Rules\Functions\ForbidIsEmptyRule
         tags: [phpstan.rules.rule]
     -
         class: Rules\Functions\ForbidIsNullRule
