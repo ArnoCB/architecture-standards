@@ -6,7 +6,5 @@ it('forbids the use of a http-response type in ordinary classes', function () {
     );
 
     expect($output)
-        ->toContain(
-        'must not return a response type Illuminate\Http\Response. Class is not a controller or middleware.'
-    );
+        ->toContain('must not return a response type Illuminate\Http\Response. Wrong class type.');
 });

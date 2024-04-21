@@ -4,11 +4,11 @@ declare(strict_types=1);
 
 namespace ArchitectureStandards\Rules\Functions;
 
+use ArchitectureStandards\Helpers\ErrorFormatter;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
-use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\ShouldNotHappenException;
 
 /**
@@ -16,6 +16,8 @@ use PHPStan\ShouldNotHappenException;
  */
 class ForbidIsEmptyRule implements Rule
 {
+    private const ERROR_MESSAGE = 'Use of is_empty() is forbidden.';
+
     public function getNodeType(): string
     {
         return Node\Expr\Empty_::class;
@@ -27,8 +29,6 @@ class ForbidIsEmptyRule implements Rule
      */
     public function processNode(Node $node, Scope $scope): array
     {
-        return [
-            RuleErrorBuilder::message('Use of is_empty() is forbidden.')->build(),
-        ];
+        return [ErrorFormatter::format(self::ERROR_MESSAGE)];
     }
 }

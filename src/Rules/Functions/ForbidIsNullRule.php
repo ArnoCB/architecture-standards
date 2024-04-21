@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace ArchitectureStandards\Rules\Functions;
 
+use ArchitectureStandards\Helpers\ErrorFormatter;
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
@@ -18,6 +19,8 @@ use PHPStan\ShouldNotHappenException;
  */
 class ForbidIsNullRule implements Rule
 {
+    private const ERROR_MESSAGE = 'Use of is_null() is forbidden.';
+
     public function getNodeType(): string
     {
         return FuncCall::class;
@@ -29,10 +32,8 @@ class ForbidIsNullRule implements Rule
      */
     public function processNode(Node $node, Scope $scope): array
     {
-        if ($node instanceof FuncCall && $node->name instanceof Name && $node->name->toString() === 'is_null') {
-            return [RuleErrorBuilder::message('Use of is_null() is forbidden.')->build()];
-        }
-
-        return [];
+        return $node instanceof FuncCall && $node->name instanceof Name && $node->name->toString() === 'is_null'
+            ? [ErrorFormatter::format(self::ERROR_MESSAGE)]
+            : [];
     }
 }

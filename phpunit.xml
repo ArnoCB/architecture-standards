@@ -1,13 +1,18 @@
-<?xml version="1.0"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd" bootstrap="vendor/autoload.php" colors="true" processIsolation="false" stopOnError="false" stopOnFailure="false" stopOnWarning="false" stopOnIncomplete="false" stopOnRisky="false" stopOnSkipped="false" cacheDirectory=".phpunit.cache">
-  <!-- Directories to search for tests -->
-  <testsuites>
-    <testsuite name="My Test Suite">
-      <directory>tests</directory>
-    </testsuite>
-  </testsuites>
-  <!-- PHP configuration -->
-  <php>
-    <ini name="error_reporting" value="-1"/>
-  </php>
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.3/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+>
+    <testsuites>
+        <testsuite name="Test Suite">
+            <directory suffix="Test.php">./tests</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory suffix=".php">./app</directory>
+            <directory suffix=".php">./src</directory>
+        </include>
+    </source>
 </phpunit>

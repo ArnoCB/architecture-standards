@@ -2,19 +2,12 @@
 
 namespace ArchitectureStandards\Traits;
 
+use Symfony\Component\HttpFoundation\Response;
+
 trait HasHttpResponse
 {
     private function isValidResponse(string $returnType): bool
     {
-        $allowedResponseTypes = [
-            'Illuminate\Http\JsonResponse',
-            'Illuminate\Http\RedirectResponse',
-            'Illuminate\Http\Response',
-            'Inertia\Response',
-            'Symfony\Component\HttpFoundation\RedirectResponse',
-            'Symfony\Component\HttpFoundation\BinaryFileResponse',
-        ];
-
-        return in_array($returnType, $allowedResponseTypes, true);
+        return class_exists($returnType) && is_subclass_of($returnType, Response::class);
     }
 }

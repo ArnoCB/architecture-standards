@@ -2,18 +2,25 @@
 
 namespace ArchitectureStandards\Rules\TypesBasedOnClass;
 
+use ArchitectureStandards\Helpers\ErrorFormatter;
 use PhpParser\Node;
+use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
+use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
-use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\ShouldNotHappenException;
 use ArchitectureStandards\Traits\HasHttpResponse;
 use ArchitectureStandards\Traits\WithClassTypeChecks;
 
-class ForbidResponseInClassesRule
+/**
+ * @implements Rule<ClassMethod>
+ */
+class ForbidResponseInClassesRule implements Rule
 {
     use HasHttpResponse, WithClassTypeChecks;
+
+    private const ERROR_MESSAGE = 'Method %s in %s must not return a response type %s. Wrong class type.';
 
     public function getNodeType(): string
     {
@@ -39,19 +46,10 @@ class ForbidResponseInClassesRule
 
         $returnType = $node->getReturnType();
 
-        if (!$returnType instanceof Node\Name || !$this->isValidResponse($returnType->toString())) {
-            return [];
-        }
-
-        return [
-            RuleErrorBuilder::message(
-                sprintf(
-                    'Method %s in %s must not return a response type %s. Class is not a controller or middleware.',
-                    $node->name->name,
-                    $classReflection->getName(),
-                    $returnType->toString()
-                )
-            )->build()
-        ];
+        return $returnType instanceof Node\Name && $this->isValidResponse($returnType->toString())
+            ? [ErrorFormatter::format(
+                self::ERROR_MESSAGE, $node->name->name, $classReflection->getName(), $returnType->toString()
+            )]
+            : [];
     }
 }

@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace ArchitectureStandards\Rules\TypesBasedOnClass;
 
+use ArchitectureStandards\Helpers\ErrorFormatter;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
-use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\ShouldNotHappenException;
 use ArchitectureStandards\Traits\HasHttpResponse;
 use ArchitectureStandards\Traits\WithClassTypeChecks;
@@ -21,6 +21,8 @@ use ArchitectureStandards\Traits\WithClassTypeChecks;
 class ForbidNonResponseTypeInControllerRule implements Rule
 {
     use HasHttpResponse, WithClassTypeChecks;
+
+    private const ERROR_MESSAGE = 'Method %s in %s must return a valid response type.';
 
     public function getNodeType(): string
     {
@@ -45,32 +47,11 @@ class ForbidNonResponseTypeInControllerRule implements Rule
 
         $returnType = $node->getReturnType();
 
-        $errors = [];
-
-        if ($returnType instanceof Node\Identifier) {
-            // log for trace
-            $errors[] = RuleErrorBuilder::message(
-                sprintf(
-                    'Method %s in %s must return a valid response type. %s is not a valid response type.',
-                    $node->name->name,
-                    $classReflection->getName(),
-                    $returnType->name
-                )
-            )->build();
-        }
-
-        if ($returnType instanceof Node\Name && !$this->isValidResponse($returnType->toString())) {
-            // log for trace
-            $errors[] = RuleErrorBuilder::message(
-                sprintf(
-                    'Method %s in %s must return a valid response type. %s is not a valid response type.',
-                    $node->name->name,
-                    $classReflection->getName(),
-                    $returnType->toString()
-                )
-            )->build();
-        }
-
-        return $errors;
+        return $returnType instanceof Node\Identifier
+               || ($returnType instanceof Node\Name && !$this->isValidResponse($returnType->toString()))
+            ? [ErrorFormatter::format(
+                self::ERROR_MESSAGE, $node->name->name, $classReflection->getName()
+            )]
+            : [];
     }
 }

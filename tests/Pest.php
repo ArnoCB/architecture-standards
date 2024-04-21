@@ -1,5 +1,3 @@
 <?php
 
-use Tests\TestCase;
-
-uses(TestCase::class)->in('Rules');
+uses(Tests\TestCase::class)->in('Rules');

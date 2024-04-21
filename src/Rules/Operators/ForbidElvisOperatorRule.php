@@ -2,6 +2,7 @@
 
 namespace ArchitectureStandards\Rules\Operators;
 
+use ArchitectureStandards\Helpers\ErrorFormatter;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Ternary;
 use PHPStan\Analyser\Scope;
@@ -15,6 +16,8 @@ use PHPStan\ShouldNotHappenException;
  */
 class ForbidElvisOperatorRule implements Rule
 {
+    private const ERROR_MESSAGE = 'Usage of the Elvis operator is forbidden.';
+
     public function getNodeType(): string
     {
         return Ternary::class;
@@ -28,10 +31,8 @@ class ForbidElvisOperatorRule implements Rule
      */
     public function processNode(Node $node, Scope $scope): array
     {
-        if ($node->if !== null) {
-            return [];
-        }
-
-        return [RuleErrorBuilder::message('Usage of the Elvis operator is forbidden.')->build()];
+        return $node->if === null
+            ? [ErrorFormatter::format(self::ERROR_MESSAGE)]
+            : [];
     }
 }

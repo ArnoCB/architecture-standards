@@ -49,3 +49,6 @@ parameters:
         disallowElvis: true|false
         architectureRules:  true|false
 ```
+## Extra development information
+
+The PHP parser used by PhpStan is [nikic/php-parser](https://github.com/nikic/PHP-Parser)       
