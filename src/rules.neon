@@ -1,0 +1,16 @@
+services:
+    -
+        class: ArchitectureStandards\Rules\Functions\ForbidIsEmptyRule
+        tags: [phpstan.rules.rule]
+    -
+        class: ArchitectureStandards\Rules\Functions\ForbidIsNullRule
+        tags: [phpstan.rules.rule]
+    -
+        class: ArchitectureStandards\Rules\TypesBasedOnClass\ForbidNonResponseTypeInControllerRule
+        tags: [phpstan.rules.rule]
+    -
+        class: ArchitectureStandards\Rules\TypesBasedOnClass\ForbidResponseInClassesRule
+        tags: [phpstan.rules.rule]
+    -
+        class: ArchitectureStandards\Rules\Operators\ForbidElvisOperatorRule
+        tags: [phpstan.rules.rule]
