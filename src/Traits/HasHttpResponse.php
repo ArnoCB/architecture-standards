@@ -1,6 +1,6 @@
 <?php
 
-namespace Traits;
+namespace ArchitectureStandards\Traits;
 
 trait HasHttpResponse
 {

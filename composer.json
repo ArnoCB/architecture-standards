@@ -1,8 +1,8 @@
 {
-    "name": "laravel/laravel",
-    "type": "project",
-    "description": "The skeleton application for the Laravel framework.",
-    "keywords": ["laravel", "framework"],
+    "name": "arnocb/architecture-standards",
+    "type": "package",
+    "description": "Some personal architecture standards for Laravel projects",
+    "keywords": ["phpstan", "code-quality", "architecture-standards"],
     "license": "MIT",
     "require": {
         "php": "^8.2",
@@ -24,8 +24,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Rules\\": "src/Rules/",
-            "Traits\\": "src/Traits/"
+            "ArchitectureStandards\\": "src/"
         }
     },
     "autoload-dev": {

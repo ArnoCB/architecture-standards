@@ -1,6 +1,6 @@
 <?php
 
-namespace Rules\Operators;
+namespace ArchitectureStandards\Rules\Operators;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\Ternary;

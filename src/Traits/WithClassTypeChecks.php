@@ -1,6 +1,6 @@
 <?php
 
-namespace Traits;
+namespace ArchitectureStandards\Traits;
 
 use Illuminate\Routing\Controller;
 use Illuminate\Routing\Controllers\Middleware;

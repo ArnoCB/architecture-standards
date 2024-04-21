@@ -2,17 +2,17 @@ parameters:
     level: max
 services:
     -
-        class: Rules\Functions\ForbidIsEmptyRule
+        class: ArchitectureStandards\Rules\Functions\ForbidIsEmptyRule
         tags: [phpstan.rules.rule]
     -
-        class: Rules\Functions\ForbidIsNullRule
+        class: ArchitectureStandards\Rules\Functions\ForbidIsNullRule
         tags: [phpstan.rules.rule]
     -
-        class: Rules\TypesBasedOnClass\ForbidNonResponseTypeInControllerRule
+        class: ArchitectureStandards\Rules\TypesBasedOnClass\ForbidNonResponseTypeInControllerRule
         tags: [phpstan.rules.rule]
     -
-        class: Rules\TypesBasedOnClass\ForbidResponseInClassesRule
+        class: ArchitectureStandards\Rules\TypesBasedOnClass\ForbidResponseInClassesRule
         tags: [phpstan.rules.rule]
     -
-        class: Rules\Operators\ForbidElvisOperatorRule
+        class: ArchitectureStandards\Rules\Operators\ForbidElvisOperatorRule
         tags: [phpstan.rules.rule]

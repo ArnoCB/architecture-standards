@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace Rules\Functions;
+namespace ArchitectureStandards\Rules\Functions;
 
-use Helpers\FormatPhpstanMessage;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
@@ -29,7 +28,7 @@ class ForbidIsEmptyRule implements Rule
     public function processNode(Node $node, Scope $scope): array
     {
         return [
-            RuleErrorBuilder::message(FormatPhpstanMessage::formatMessage('Usage of is_empty() is forbidden.'))->build(),
+            RuleErrorBuilder::message('Use of is_empty() is forbidden.')->build(),
         ];
     }
 }

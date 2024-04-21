@@ -1,6 +1,6 @@
 <?php
 
-namespace Rules\TypesBasedOnClass;
+namespace ArchitectureStandards\Rules\TypesBasedOnClass;
 
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
@@ -8,8 +8,8 @@ use PHPStan\Reflection\ClassReflection;
 use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\ShouldNotHappenException;
-use Traits\HasHttpResponse;
-use Traits\WithClassTypeChecks;
+use ArchitectureStandards\Traits\HasHttpResponse;
+use ArchitectureStandards\Traits\WithClassTypeChecks;
 
 class ForbidResponseInClassesRule
 {

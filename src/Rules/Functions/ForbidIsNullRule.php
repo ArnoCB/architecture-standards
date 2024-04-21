@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rules\Functions;
+namespace ArchitectureStandards\Rules\Functions;
 
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
@@ -29,7 +29,7 @@ class ForbidIsNullRule implements Rule
      */
     public function processNode(Node $node, Scope $scope): array
     {
-        if ($node->name instanceof Name && $node->name->toString() === 'is_null') {
+        if ($node instanceof FuncCall && $node->name instanceof Name && $node->name->toString() === 'is_null') {
             return [RuleErrorBuilder::message('Use of is_null() is forbidden.')->build()];
         }
 

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Rules\TypesBasedOnClass;
+namespace ArchitectureStandards\Rules\TypesBasedOnClass;
 
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -12,8 +12,8 @@ use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\ShouldNotHappenException;
-use Traits\HasHttpResponse;
-use Traits\WithClassTypeChecks;
+use ArchitectureStandards\Traits\HasHttpResponse;
+use ArchitectureStandards\Traits\WithClassTypeChecks;
 
 /**
  * @implements Rule<ClassMethod>
