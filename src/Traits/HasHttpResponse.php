@@ -7,7 +7,7 @@ trait HasHttpResponse
     /**
      * @var array<string>
      */
-    private array $primitiveResponseTypes = [
+    private array $baseResponses = [
         'Symfony\Component\HttpFoundation\Response',
         'Inertia\Response'
     ];
@@ -21,6 +21,6 @@ trait HasHttpResponse
         $classParents = class_parents($returnType);
         $parents = is_array($classParents) ? $classParents : [];
 
-        return count(array_intersect([$returnType, ...$parents], $this->primitiveResponseTypes)) > 0;
+        return count(array_intersect([$returnType, ...$parents], $this->baseResponses)) > 0;
     }
 }
