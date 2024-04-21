@@ -20,9 +20,11 @@ conditionalTags:
        phpstan.rules.rule: %architectureRules.disallowIsNull%
    ArchitectureStandards\Rules\Operators\ForbidElvisOperatorRule:
        phpstan.rules.rule: %architectureRules.disallowElvis%
-   ArchitectureStandards\Rules\TypesBasedOnClass\ForbidResponseInClassesRule:
+   ArchitectureStandards\Rules\Architecture\ForbidResponseInClassesRule:
        phpstan.rules.rule: %architectureRules.architectureRules%
-   ArchitectureStandards\Rules\TypesBasedOnClass\ForbidNonResponseTypeInControllerRule:
+   ArchitectureStandards\Rules\Architecture\ForbidNonResponseTypeInControllerRule:
+       phpstan.rules.rule: %architectureRules.architectureRules%
+   ArchitectureStandards\Rules\Architecture\ForbidStateInHelperClassRule:
        phpstan.rules.rule: %architectureRules.architectureRules%
 
 services:
@@ -31,8 +33,10 @@ services:
     -
         class: ArchitectureStandards\Rules\Functions\ForbidIsNullRule
     -
-        class: ArchitectureStandards\Rules\TypesBasedOnClass\ForbidNonResponseTypeInControllerRule
+        class: ArchitectureStandards\Rules\Architecture\ForbidNonResponseTypeInControllerRule
     -
-        class: ArchitectureStandards\Rules\TypesBasedOnClass\ForbidResponseInClassesRule
+        class: ArchitectureStandards\Rules\Architecture\ForbidResponseInClassesRule
     -
         class: ArchitectureStandards\Rules\Operators\ForbidElvisOperatorRule
+    -
+        class: ArchitectureStandards\Rules\Architecture\ForbidStateInHelperClassRule

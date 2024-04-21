@@ -1,6 +1,6 @@
 <?php
 
-namespace ArchitectureStandards\Rules\TypesBasedOnClass;
+namespace ArchitectureStandards\Rules\Architecture;
 
 use ArchitectureStandards\Helpers\ErrorFormatter;
 use PhpParser\Node;
@@ -38,7 +38,6 @@ class ForbidResponseInClassesRule implements Rule
         $classReflection = $scope->getClassReflection();
 
         if (!$classReflection instanceof ClassReflection
-            || !$node instanceof Node\Stmt\ClassMethod
             || $this->isControllerClass($classReflection)
             || $this->isMiddlewareClass($classReflection)) {
             return [];

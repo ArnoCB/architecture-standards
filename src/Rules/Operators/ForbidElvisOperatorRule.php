@@ -16,7 +16,7 @@ use PHPStan\ShouldNotHappenException;
  */
 class ForbidElvisOperatorRule implements Rule
 {
-    private const ERROR_MESSAGE = 'Usage of the Elvis operator is forbidden.';
+    private const ERROR_MESSAGE = 'Use of the Elvis operator is forbidden.';
 
     public function getNodeType(): string
     {

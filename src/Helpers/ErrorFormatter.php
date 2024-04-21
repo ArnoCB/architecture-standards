@@ -8,7 +8,7 @@ use PHPStan\ShouldNotHappenException;
 
 class ErrorFormatter
 {
-    private const PREFIX = 'acb: ';
+    private const PREFIX = '(acb)';
 
     /**
      * @throws ShouldNotHappenException
