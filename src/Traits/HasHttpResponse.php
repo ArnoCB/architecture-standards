@@ -8,9 +8,11 @@ trait HasHttpResponse
     {
         $allowedResponseTypes = [
             'Illuminate\Http\JsonResponse',
+            'Illuminate\Http\RedirectResponse',
             'Illuminate\Http\Response',
             'Inertia\Response',
             'Symfony\Component\HttpFoundation\RedirectResponse',
+            'Symfony\Component\HttpFoundation\BinaryFileResponse',
         ];
 
         return in_array($returnType, $allowedResponseTypes, true);
