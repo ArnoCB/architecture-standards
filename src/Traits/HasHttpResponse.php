@@ -2,14 +2,25 @@
 
 namespace ArchitectureStandards\Traits;
 
-use Symfony\Component\HttpFoundation\Response;
-
 trait HasHttpResponse
 {
+    /**
+     * @var array<string>
+     */
+    private array $primitiveResponseTypes = [
+        'Symfony\Component\HttpFoundation\Response',
+        'Inertia\Response'
+    ];
+
     private function isValidResponse(string $returnType): bool
     {
-        return class_exists($returnType) &&
-               (is_subclass_of($returnType, Response::class)
-                || is_subclass_of($returnType, 'Inertia\Response'));
+        if (!class_exists($returnType)) {
+            return false;
+        }
+
+        $classParents = class_parents($returnType);
+        $parents = is_array($classParents) ? $classParents : [];
+
+        return count(array_intersect([$returnType, ...$parents], $this->primitiveResponseTypes)) > 0;
     }
 }
