@@ -8,6 +8,8 @@ trait HasHttpResponse
 {
     private function isValidResponse(string $returnType): bool
     {
-        return class_exists($returnType) && is_subclass_of($returnType, Response::class);
+        return class_exists($returnType) &&
+               (is_subclass_of($returnType, Response::class)
+                || is_subclass_of($returnType, 'Inertia\Response'));
     }
 }
