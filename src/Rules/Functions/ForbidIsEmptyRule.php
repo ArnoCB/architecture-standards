@@ -6,13 +6,14 @@ namespace ArchitectureStandards\Rules\Functions;
 
 use ArchitectureStandards\Helpers\ErrorFormatter;
 use PhpParser\Node;
+use PhpParser\Node\Expr\Empty_;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 use PHPStan\ShouldNotHappenException;
 
 /**
- * @implements Rule<Node\Expr\Empty_>
+ * @implements Rule<Empty_>
  */
 class ForbidIsEmptyRule implements Rule
 {
@@ -20,7 +21,7 @@ class ForbidIsEmptyRule implements Rule
 
     public function getNodeType(): string
     {
-        return Node\Expr\Empty_::class;
+        return Empty_::class;
     }
 
     /**

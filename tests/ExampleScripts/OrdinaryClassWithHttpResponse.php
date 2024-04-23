@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Tests\ExampleScripts;
 
 use Illuminate\Http\Response;

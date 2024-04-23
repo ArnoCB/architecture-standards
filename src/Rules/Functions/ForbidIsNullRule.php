@@ -11,11 +11,10 @@ use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
-use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\ShouldNotHappenException;
 
 /**
- * @implements Rule<Node\Expr\FuncCall>
+ * @implements Rule<FuncCall>
  */
 class ForbidIsNullRule implements Rule
 {
