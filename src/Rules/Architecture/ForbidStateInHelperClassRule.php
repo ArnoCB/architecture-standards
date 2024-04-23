@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ArchitectureStandards\Rules\Architecture;
 
 use ArchitectureStandards\Helpers\ErrorFormatter;

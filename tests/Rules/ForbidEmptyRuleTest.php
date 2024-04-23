@@ -1,6 +1,6 @@
 <?php
 
-it('forbids the use of is_null()', function () {
+it('forbids the use of is_empty()', function () {
     $output = shell_exec(
         'vendor/bin/phpstan analyse tests/ExampleScripts/ScriptUsingIsEmpty.php --error-format raw 2>&1
 ');

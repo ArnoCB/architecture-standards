@@ -1,25 +1,25 @@
 parameters:
     architectureRules:
         allRules: true
-        disallowEmpty: %architectureRules.allRules%
-        disallowIsNull: %architectureRules.allRules%
-        disallowElvis: %architectureRules.allRules%
+        forbidEmpty: %architectureRules.allRules%
+        forbidIsNull: %architectureRules.allRules%
+        forbidElvis: %architectureRules.allRules%
         architectureRules: %architectureRules.allRules%
 parametersSchema:
     architectureRules: structure([
         allRules: anyOf(bool(), arrayOf(bool())),
-        disallowEmpty: anyOf(bool(), arrayOf(bool())),
-        disallowIsNull: anyOf(bool(), arrayOf(bool())),
-        disallowElvis: anyOf(bool(), arrayOf(bool()))
+        forbidEmpty: anyOf(bool(), arrayOf(bool())),
+        forbidIsNull: anyOf(bool(), arrayOf(bool())),
+        forbidElvis: anyOf(bool(), arrayOf(bool()))
         architectureRules: anyOf(bool(), arrayOf(bool()))
     ])
 conditionalTags:
    ArchitectureStandards\Rules\Functions\ForbidIsEmptyRule:
-       phpstan.rules.rule: %architectureRules.disallowEmpty%
+       phpstan.rules.rule: %architectureRules.forbidEmpty%
    ArchitectureStandards\Rules\Functions\ForbidIsNullRule:
-       phpstan.rules.rule: %architectureRules.disallowIsNull%
+       phpstan.rules.rule: %architectureRules.forbidIsNull%
    ArchitectureStandards\Rules\Operators\ForbidElvisOperatorRule:
-       phpstan.rules.rule: %architectureRules.disallowElvis%
+       phpstan.rules.rule: %architectureRules.forbidElvis%
    ArchitectureStandards\Rules\Architecture\ForbidResponseInClassesRule:
        phpstan.rules.rule: %architectureRules.architectureRules%
    ArchitectureStandards\Rules\Architecture\ForbidNonResponseTypeInControllerRule:

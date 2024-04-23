@@ -33,20 +33,20 @@ includes:
 ```
 
 ## Rules
-- **DisallowEmptyRule** - Disallow empty statements
-- **DisallowIsNullRule** - Disallow is_null() checks
-- **DisallowElvisRule** - Disallow elvis operators
-- **ArchitectureRules** - Disallow methods in the Controller that don't give a response
-- Disallow responses in non-Controller / non-Middleware classes
+- **ForbidEmptyRule** - Forbid empty statements
+- **ForbidIsNullRule** - Forbid is_null() checks
+- **ForbidElvisRule** - Forbid elvis operators
+- **ArchitectureRules** - Forbid methods in the Controller that don't give a response
+- Forbid responses in non-Controller / non-Middleware classes
 
 ### Flag settings
 ```neon
 parameters:
     architectureRules:
         allRules: true|false
-        disallowEmpty:  true|false
-        disallowIsNull: true|false
-        disallowElvis: true|false
+        forbidEmpty:  true|false
+        forbidIsNull: true|false
+        forbidElvis: true|false
         architectureRules:  true|false
 ```
 ## Extra development information

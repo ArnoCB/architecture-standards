@@ -10,6 +10,6 @@ class ClassWithStatefulHelper
 
     public function testHelperIndex(): void
     {
-        echo 'Hello World';
+        echo $this->state;
     }
 }
