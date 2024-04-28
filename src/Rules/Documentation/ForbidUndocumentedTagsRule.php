@@ -21,7 +21,7 @@ class ForbidUndocumentedTagsRule implements Rule
     public const ERROR_MESSAGE = 'Unknown tag %s in PHPDoc.';
 
     /**
-     * This is a list of known PHPDoc tags from PSR-19 and some unofficial tags.
+     * This is a list of known PHPDoc tags from PSR-19, the PHPDoc reference and some unofficial tags.
      *
      * @var array<int, string>
      */
@@ -30,7 +30,10 @@ class ForbidUndocumentedTagsRule implements Rule
         'author',
         'copyright',
         'deprecated',
+        'example',
+        'filesource',
         'generated',
+        'ignore',
         'inheritDoc',
         'internal',
         'link',
@@ -38,20 +41,28 @@ class ForbidUndocumentedTagsRule implements Rule
         'package',
         'param',
         'property',
+        'property-read',
+        'property-write',
         'return',
         'see',
         'since',
         'throws',
         'todo',
         'uses',
+        // used-by should be generated, not added manually
         'var',
         'version',
         // unofficial tags (non-PHPDoc or PSR-19)
         // phpstan
+        'extends',
         'implements',
         'template',
         // ide, such as PhpStorm
         'mixin',
+        // php mess detector
+        'SuppressWarnings',
+        // phpunit code coverage
+        'noinspection',
     ];
 
     public function getNodeType(): string

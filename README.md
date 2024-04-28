@@ -51,8 +51,8 @@ parameters:
 ```
 ## Extra development information
 
-The PHP parser used by PhpStan is [nikic/php-parser](https://github.com/nikic/PHP-Parser)       
-
-The PHPDoc standard (PSR-19) is a work in progress, but can be found at:
+- The PHP parser used by PhpStan is [nikic/php-parser](https://github.com/nikic/PHP-Parser)       
+- The api description of PHPDoc: https://docs.phpdoc.org/3.0/
+- The PHPDoc standard (PSR-19) is a work in progress, but can be found at:
 https://github.com/php-fig/fig-standards/blob/master/proposed/phpdoc-tags.md
 
