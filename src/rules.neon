@@ -26,6 +26,10 @@ conditionalTags:
        phpstan.rules.rule: %architectureRules.architectureRules%
    ArchitectureStandards\Rules\Architecture\ForbidStateInHelperClassRule:
        phpstan.rules.rule: %architectureRules.architectureRules%
+   ArchitectureStandards\Rules\Documentation\ForbidPrimitiveTypeSynonymsRule:
+       phpstan.rules.rule: %architectureRules.architectureRules%
+   ArchitectureStandards\Rules\Documentation\ForbidUndocumentedTagsRule:
+       phpstan.rules.rule: %architectureRules.architectureRules%
 
 services:
     -
@@ -40,3 +44,8 @@ services:
         class: ArchitectureStandards\Rules\Operators\ForbidElvisOperatorRule
     -
         class: ArchitectureStandards\Rules\Architecture\ForbidStateInHelperClassRule
+    -
+        class: ArchitectureStandards\Rules\Documentation\ForbidPrimitiveTypeSynonymsRule
+    -
+        class: ArchitectureStandards\Rules\Documentation\ForbidUndocumentedTagsRule
+
