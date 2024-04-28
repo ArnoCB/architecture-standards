@@ -18,8 +18,6 @@ use PHPStan\ShouldNotHappenException;
  */
 class ForbidUndocumentedTagsRule implements Rule
 {
-    public const ERROR_MESSAGE = 'Unknown tag %s in PHPDoc.';
-
     /**
      * This is a list of known PHPDoc tags from PSR-19, the PHPDoc reference and some unofficial tags.
      *
@@ -56,14 +54,19 @@ class ForbidUndocumentedTagsRule implements Rule
         // phpstan
         'extends',
         'implements',
+        'phpstan-ignore-next-line',
+        'phpstan-type',
         'template',
-        // ide, such as PhpStorm
+        // ide (PhpStorm)
+        'noinspection',
         'mixin',
         // php mess detector
         'SuppressWarnings',
         // phpunit code coverage
-        'noinspection',
+        'codeCoverageIgnore',
     ];
+
+    public const ERROR_MESSAGE = 'Unknown tag %s in PHPDoc.';
 
     public function getNodeType(): string
     {
