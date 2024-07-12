@@ -1,6 +1,6 @@
 <?php
 
-it('forbids the use of a http-response type in ordinary classes', function () {
+it('forbids the use of a http-response type in ordinary classes', function (): void {
     $output = shell_exec(
         'vendor/bin/phpstan analyse tests/ExampleScripts/OrdinaryClassWithHttpResponse.php --level 0 --error-format raw 2>&1'
     );

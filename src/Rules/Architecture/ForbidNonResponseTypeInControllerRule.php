@@ -6,7 +6,9 @@ namespace ArchitectureStandards\Rules\Architecture;
 
 use ArchitectureStandards\Helpers\ErrorFormatter;
 use PhpParser\Node;
+use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassMethod;
+use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
 use PHPStan\Rules\Rule;
@@ -26,12 +28,10 @@ class ForbidNonResponseTypeInControllerRule implements Rule
 
     public function getNodeType(): string
     {
-        return Node\Stmt\ClassMethod::class;
+        return ClassMethod::class;
     }
 
     /**
-     * @param Node\Stmt\ClassMethod $node
-     * @param Scope $scope
      * @return array<int, RuleError>
      * @throws ShouldNotHappenException
      */
@@ -40,17 +40,18 @@ class ForbidNonResponseTypeInControllerRule implements Rule
         $classReflection = $scope->getClassReflection();
 
         if (!$classReflection instanceof ClassReflection
-            || !$this->isControllerClass($classReflection)) {
+            || !property_exists($node, 'name')
+            || !$this->isControllerClass($classReflection)
+            || !method_exists($node, 'getReturnType')) {
+
             return [];
         }
 
-        $returnType = $node->getReturnType();
+       $returnType = $node->getReturnType();
 
-        return $returnType instanceof Node\Identifier
-               || ($returnType instanceof Node\Name && !$this->isValidResponse($returnType->toString()))
-            ? [ErrorFormatter::format(
-                self::ERROR_MESSAGE, $node->name->name, $classReflection->getName()
-            )]
+        return $returnType instanceof Identifier
+               || ($returnType instanceof Name && !$this->isValidResponse($returnType->toString()))
+            ? [ErrorFormatter::format(self::ERROR_MESSAGE, $node->name->name, $classReflection->getName())]
             : [];
     }
 }

@@ -13,6 +13,13 @@ use PHPStan\Rules\RuleError;
 use PHPStan\ShouldNotHappenException;
 
 /**
+ * The use of the Elvis operator is forbidden, because it doesn't allow for strict typing.
+ *
+ * @example This would be a form of type juggling:
+ * ```php
+ * $value = $value ?: 'default';
+ * ```
+ *
  * @implements Rule<Ternary>
  */
 class ForbidElvisOperatorRule implements Rule

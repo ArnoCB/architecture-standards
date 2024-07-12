@@ -1,6 +1,6 @@
 <?php
 
-it('should not use undocumented tags in a doc block', function () {
+it('should not use undocumented tags in a doc block', function (): void {
     $file = 'tests/ExampleScripts/ClassWithNonExistingTagsInPhpDocBlock.php';
 
     $output = shell_exec("vendor/bin/phpstan analyse $file --error-format raw 2>&1");

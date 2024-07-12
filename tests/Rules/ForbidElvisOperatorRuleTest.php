@@ -1,6 +1,6 @@
 <?php
 
-it('forbids the use of the elvis operator', function () {
+it('forbids the use of the elvis operator', function (): void {
     $output = shell_exec(
         'vendor/bin/phpstan analyse tests/ExampleScripts/ScriptWithElvisOperator.php --error-format raw 2>&1
     ');

@@ -24,11 +24,15 @@ conditionalTags:
        phpstan.rules.rule: %architectureRules.architectureRules%
    ArchitectureStandards\Rules\Architecture\ForbidNonResponseTypeInControllerRule:
        phpstan.rules.rule: %architectureRules.architectureRules%
+   ArchitectureStandards\Rules\Architecture\ForbidDynamicMethodsInHelperClassRule:
+          phpstan.rules.rule: %architectureRules.architectureRules%
    ArchitectureStandards\Rules\Architecture\ForbidStateInHelperClassRule:
        phpstan.rules.rule: %architectureRules.architectureRules%
    ArchitectureStandards\Rules\Documentation\ForbidPrimitiveTypeSynonymsRule:
        phpstan.rules.rule: %architectureRules.architectureRules%
    ArchitectureStandards\Rules\Documentation\ForbidUndocumentedTagsRule:
+       phpstan.rules.rule: %architectureRules.architectureRules%
+   ArchitectureStandards\Rules\Architecture\ForbidCallbackWithoutReturnTypeRule:
        phpstan.rules.rule: %architectureRules.architectureRules%
 
 services:
@@ -45,7 +49,10 @@ services:
     -
         class: ArchitectureStandards\Rules\Architecture\ForbidStateInHelperClassRule
     -
+        class: ArchitectureStandards\Rules\Architecture\ForbidDynamicMethodsInHelperClassRule
+    -
         class: ArchitectureStandards\Rules\Documentation\ForbidPrimitiveTypeSynonymsRule
     -
         class: ArchitectureStandards\Rules\Documentation\ForbidUndocumentedTagsRule
-
+    -
+        class: ArchitectureStandards\Rules\Architecture\ForbidCallbackWithoutReturnTypeRule

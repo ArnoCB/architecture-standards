@@ -13,6 +13,9 @@ use PHPStan\Rules\RuleError;
 use PHPStan\ShouldNotHappenException;
 
 /**
+ * The use of primitive type synonyms is forbidden, because although they are valid in PHP, they don't
+ * work in phpdoc type hints. This would lead to confusion.
+ *
  * @implements Rule<ClassMethod>
  */
 class ForbidPrimitiveTypeSynonymsRule implements Rule

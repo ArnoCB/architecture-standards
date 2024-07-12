@@ -1,6 +1,6 @@
 <?php
 
-it('forbids the use of is_null()', function () {
+it('forbids the use of is_null()', function (): void {
     $output = shell_exec(
         'vendor/bin/phpstan analyse tests/ExampleScripts/ScriptWithIsNull.php --error-format raw 2>&1
     ');

@@ -13,6 +13,8 @@ use PHPStan\Rules\RuleError;
 use PHPStan\ShouldNotHappenException;
 
 /**
+ * The use of is_empty() is forbidden, because too many things are empty (even the string '0' is considered empty).
+ *
  * @implements Rule<Empty_>
  */
 class ForbidIsEmptyRule implements Rule

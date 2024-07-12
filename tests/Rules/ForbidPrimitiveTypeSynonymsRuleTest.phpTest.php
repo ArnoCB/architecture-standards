@@ -1,6 +1,6 @@
 <?php
 
-it('should not use primitive type synonyms in PHPDoc', function () {
+it('should not use primitive type synonyms in PHPDoc', function (): void {
     $file = 'tests/ExampleScripts/ClassWithWrongPhpDocType.php';
 
     $output = shell_exec("vendor/bin/phpstan analyse $file --error-format raw 2>&1");
