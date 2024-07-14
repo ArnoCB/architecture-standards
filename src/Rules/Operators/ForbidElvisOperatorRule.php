@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ArchitectureStandards\Rules\Operators;
 
-use ArchitectureStandards\Helpers\ErrorFormatter;
+use ArchitectureStandards\Helpers\ErrorHelper;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Ternary;
 use PHPStan\Analyser\Scope;
@@ -33,14 +33,13 @@ class ForbidElvisOperatorRule implements Rule
 
     /**
      * @param Ternary $node
-     * @param Scope $scope
-     * @return RuleError[]
+     * @return array{0: RuleError} | array{}
      * @throws ShouldNotHappenException
      */
     public function processNode(Node $node, Scope $scope): array
     {
         return $node->if === null
-            ? [ErrorFormatter::format(self::ERROR_MESSAGE)]
+            ? [ErrorHelper::format(self::ERROR_MESSAGE)]
             : [];
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ArchitectureStandards\Rules\Functions;
 
-use ArchitectureStandards\Helpers\ErrorFormatter;
+use ArchitectureStandards\Helpers\ErrorHelper;
 use PhpParser\Node;
 use PhpParser\Node\Expr\FuncCall;
 use PhpParser\Node\Name;
@@ -26,13 +26,13 @@ class ForbidIsNullRule implements Rule
     }
 
     /**
-     * @return array<int, RuleError>
+     * @return array{0: RuleError} | array{}
      * @throws ShouldNotHappenException
      */
     public function processNode(Node $node, Scope $scope): array
     {
         return $node instanceof FuncCall && $node->name instanceof Name && $node->name->toString() === 'is_null'
-            ? [ErrorFormatter::format(self::ERROR_MESSAGE)]
+            ? [ErrorHelper::format(self::ERROR_MESSAGE)]
             : [];
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace ArchitectureStandards\Traits;
 
 use Illuminate\Routing\Controller;
@@ -24,9 +26,8 @@ trait WithClassTypeChecks
      */
     public static function isInstanceOfClasses(object|string $class, array $classNames): bool
     {
-        return count(array_filter(
-            $classNames,
-            static fn (object|string $className): bool => $class instanceof $className
-        )) > 0;
+        return count(
+            array_filter($classNames, static fn (object|string $className): bool => $class instanceof $className)
+        ) > 0;
     }
 }

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace ArchitectureStandards\Rules\Architecture;
 
+use ArchitectureStandards\Helpers\ArrayHelper;
+use ArchitectureStandards\Helpers\ErrorHelper;
 use Closure;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
@@ -12,7 +14,6 @@ use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
-use PHPStan\Rules\RuleErrorBuilder;
 use PHPStan\ShouldNotHappenException;
 use ArchitectureStandards\Traits\HasHttpResponse;
 use ArchitectureStandards\Traits\WithClassTypeChecks;
@@ -26,7 +27,7 @@ class ForbidDynamicMethodsInHelperClassRule implements Rule
 {
     use HasHttpResponse, WithClassTypeChecks;
 
-    private const ERROR_MESSAGE = 'Helper class %s must not have dynamic methods.';
+    private const ERROR_MESSAGE = "Helper class %s must not have dynamic methods.";
 
     public function getNodeType(): string
     {
@@ -34,7 +35,7 @@ class ForbidDynamicMethodsInHelperClassRule implements Rule
     }
 
     /**
-     * @return array<int, RuleError>
+     * @return array<int<0, max>, RuleError> | array{}
      * @throws ShouldNotHappenException
      */
     public function processNode(Node $node, Scope $scope): array
@@ -49,7 +50,12 @@ class ForbidDynamicMethodsInHelperClassRule implements Rule
 
         $nodeName = $node->name->name;
 
-        return array_filter(array_map($this->getRuleErrorForNonStatic($nodeName), $node->getMethods()));
+        return ArrayHelper::filterNullAndReindex(
+            array_map(
+                $this->getRuleErrorForNonStatic($nodeName),
+                $node->getMethods()
+            )
+        );
     }
 
     /**
@@ -58,10 +64,10 @@ class ForbidDynamicMethodsInHelperClassRule implements Rule
      */
     public function getRuleErrorForNonStatic(string $nodeName): Closure
     {
-        return static fn (ClassMethod $method): ?RuleError => !$method->isStatic()
-            ? RuleErrorBuilder::message(sprintf(self::ERROR_MESSAGE, $nodeName))
-                ->line($method->getLine())
-                ->build()
+        return static fn(
+            ClassMethod $method
+        ): ?RuleError => !$method->isStatic()
+            ? ErrorHelper::formatWithLine(self::ERROR_MESSAGE, $method->getLine(), $nodeName)
             : null;
     }
 }

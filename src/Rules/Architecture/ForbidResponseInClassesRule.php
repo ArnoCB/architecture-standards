@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ArchitectureStandards\Rules\Architecture;
 
-use ArchitectureStandards\Helpers\ErrorFormatter;
+use ArchitectureStandards\Helpers\ErrorHelper;
 use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -35,7 +35,7 @@ class ForbidResponseInClassesRule implements Rule
     /**
      * @param ClassMethod $node
      * @param Scope $scope
-     * @return array<int, RuleError>
+     * @return array<RuleError>
      * @throws ShouldNotHappenException
      */
     public function processNode(Node $node, Scope $scope): array
@@ -51,7 +51,7 @@ class ForbidResponseInClassesRule implements Rule
         $returnType = $node->getReturnType();
 
         return $returnType instanceof Name && $this->isValidResponse($returnType->toString())
-            ? [ErrorFormatter::format(
+            ? [ErrorHelper::format(
                 self::ERROR_MESSAGE, $node->name->name, $classReflection->getName(), $returnType->toString()
             )]
             : [];

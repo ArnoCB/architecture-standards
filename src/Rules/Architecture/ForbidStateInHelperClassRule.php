@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ArchitectureStandards\Rules\Architecture;
 
-use ArchitectureStandards\Helpers\ErrorFormatter;
+use ArchitectureStandards\Helpers\ErrorHelper;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\Class_;
@@ -32,7 +32,7 @@ class ForbidStateInHelperClassRule implements Rule
     }
 
     /**
-     * @return array<int, RuleError>
+     * @return array<RuleError>
      * @throws ShouldNotHappenException
      */
     public function processNode(Node $node, Scope $scope): array
@@ -44,7 +44,7 @@ class ForbidStateInHelperClassRule implements Rule
         return ($node->name instanceof Identifier
                 && str_ends_with($node->name->name, 'Helper')
                 && count($node->getProperties()) > 0)
-            ? [ErrorFormatter::format(self::ERROR_MESSAGE, $node->name->name)]
+            ? [ErrorHelper::format(self::ERROR_MESSAGE, $node->name->name)]
             : [];
     }
 }

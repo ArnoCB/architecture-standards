@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ArchitectureStandards\Rules\Documentation;
 
-use ArchitectureStandards\Helpers\ErrorFormatter;
+use ArchitectureStandards\Helpers\ErrorHelper;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
@@ -95,14 +95,10 @@ class ForbidPrimitiveTypeSynonymsRule implements Rule
     private function checkComplexType(string $match): void
     {
         foreach (self::FORBIDDEN_SYNONYMS as $forbiddenType) {
-            if (!str_contains($match, $forbiddenType)) {
-                continue;
+            if (str_contains($match, $forbiddenType)) {
+                $this->messages[] = ErrorHelper::format(self::ERROR_MESSAGE,
+                    "$forbiddenType in $match",);
             }
-
-            $this->messages[] = ErrorFormatter::format(
-                self::ERROR_MESSAGE,
-                "$forbiddenType in $match",
-            );
         }
     }
 
@@ -112,7 +108,7 @@ class ForbidPrimitiveTypeSynonymsRule implements Rule
     private function checkPrimitiveType(string $match): void
     {
         if (in_array($match, self::FORBIDDEN_SYNONYMS)) {
-            $this->messages[] = ErrorFormatter::format(self::ERROR_MESSAGE, $match);
+            $this->messages[] = ErrorHelper::format(self::ERROR_MESSAGE, $match);
         }
     }
 }

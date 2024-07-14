@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ArchitectureStandards\Rules\Architecture;
 
-use ArchitectureStandards\Helpers\ErrorFormatter;
+use ArchitectureStandards\Helpers\ErrorHelper;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassMethod;
@@ -32,7 +32,7 @@ class ForbidNonResponseTypeInControllerRule implements Rule
     }
 
     /**
-     * @return array<int, RuleError>
+     * @return array{0: RuleError} | array{}
      * @throws ShouldNotHappenException
      */
     public function processNode(Node $node, Scope $scope): array
@@ -47,11 +47,13 @@ class ForbidNonResponseTypeInControllerRule implements Rule
             return [];
         }
 
-       $returnType = $node->getReturnType();
+        $returnType = $node->getReturnType();
 
-        return $returnType instanceof Identifier
-               || ($returnType instanceof Name && !$this->isValidResponse($returnType->toString()))
-            ? [ErrorFormatter::format(self::ERROR_MESSAGE, $node->name->name, $classReflection->getName())]
+        $hasError = $returnType instanceof Identifier
+                    || ($returnType instanceof Name && !$this->isValidResponse($returnType->toString()));
+
+        return $hasError
+            ? [ErrorHelper::format(self::ERROR_MESSAGE, $node->name->name, $classReflection->getName())]
             : [];
     }
 }

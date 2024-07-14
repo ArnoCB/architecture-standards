@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace ArchitectureStandards\Rules\Functions;
 
-use ArchitectureStandards\Helpers\ErrorFormatter;
+use ArchitectureStandards\Helpers\ErrorHelper;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Empty_;
 use PHPStan\Analyser\Scope;
@@ -27,11 +27,11 @@ class ForbidIsEmptyRule implements Rule
     }
 
     /**
-     * @return array<int, RuleError>
+     * @return array{0: RuleError}
      * @throws ShouldNotHappenException
      */
     public function processNode(Node $node, Scope $scope): array
     {
-        return [ErrorFormatter::format(self::ERROR_MESSAGE)];
+        return [ErrorHelper::format(self::ERROR_MESSAGE)];
     }
 }

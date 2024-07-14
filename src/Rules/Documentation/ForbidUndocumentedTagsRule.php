@@ -4,8 +4,10 @@ declare(strict_types=1);
 
 namespace ArchitectureStandards\Rules\Documentation;
 
-use ArchitectureStandards\Helpers\ErrorFormatter;
+use ArchitectureStandards\Helpers\ArrayHelper;
+use ArchitectureStandards\Helpers\ErrorHelper;
 use ArchitectureStandards\Traits\WithClassTypeChecks;
+use Closure;
 use phpDocumentor\Reflection\DocBlock\Tag;
 use phpDocumentor\Reflection\DocBlockFactory;
 use PhpParser\Comment\Doc;
@@ -25,7 +27,7 @@ class ForbidUndocumentedTagsRule implements Rule
     /**
      * This is a list of known PHPDoc tags from PSR-19, the PHPDoc reference and some unofficial tags.
      *
-     * @var array<int, string>
+     * @var array<int<0, max>, string>
      */
     public const KNOWN_TAGS = [
         'api',
@@ -78,7 +80,7 @@ class ForbidUndocumentedTagsRule implements Rule
     }
 
     /**
-     * @throws ShouldNotHappenException
+     * @return array<RuleError>
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -93,15 +95,13 @@ class ForbidUndocumentedTagsRule implements Rule
             return [];
         }
 
-        return array_values(array_filter(array_map(
-            static fn (string $tag): ?RuleError => !in_array($tag, self::KNOWN_TAGS, true)
-                ? ErrorFormatter::format(self::ERROR_MESSAGE, "@$tag")
-                : null,
-            $this->getTags($docComment))));
+        return ArrayHelper::filterNullAndReindex(
+            array_map(self::giveErrorIfUnknownTagClosure(), $this->getTags($docComment))
+        );
     }
 
     /**
-     * @return array<string>
+     * @return array<int<0, max>, string>
      */
     public function getTags(Doc $docComment): array
     {
@@ -109,5 +109,15 @@ class ForbidUndocumentedTagsRule implements Rule
             static fn (Tag $tag): string => $tag->getName(),
             DocBlockFactory::createInstance()->create($docComment->getText())->getTags()
         );
+    }
+
+    /**
+     * @return Closure
+     */
+    public static function giveErrorIfUnknownTagClosure(): Closure
+    {
+        return static fn (string $tag): ?RuleError => !in_array($tag, self::KNOWN_TAGS, true)
+            ? ErrorHelper::format(self::ERROR_MESSAGE, "@$tag")
+            : null;
     }
 }
