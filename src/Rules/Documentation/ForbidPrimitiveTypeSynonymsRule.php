@@ -35,7 +35,7 @@ class ForbidPrimitiveTypeSynonymsRule implements Rule
     ];
 
     /**
-     * @var array<int, RuleError>
+     * @var array<RuleError>
      */
     public array $messages = [];
 
@@ -45,7 +45,7 @@ class ForbidPrimitiveTypeSynonymsRule implements Rule
     }
 
     /**
-     * @return array<int, RuleError>
+     * @return array<RuleError>
      * @throws ShouldNotHappenException
      */
     public function processNode(Node $node, Scope $scope): array

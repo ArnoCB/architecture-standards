@@ -35,7 +35,7 @@ class ForbidResponseInClassesRule implements Rule
     /**
      * @param ClassMethod $node
      * @param Scope $scope
-     * @return array<RuleError>
+     * @return array{0: RuleError} | array{}
      * @throws ShouldNotHappenException
      */
     public function processNode(Node $node, Scope $scope): array
