@@ -81,7 +81,6 @@ class ForbidPrimitiveTypeSynonymsRule implements Rule
         foreach ($matches[1] as $match) {
             if (str_contains($match, '<') || str_contains($match, '{')) {
                 $this->checkComplexType($match);
-
                 continue;
             }
 
@@ -96,8 +95,10 @@ class ForbidPrimitiveTypeSynonymsRule implements Rule
     {
         foreach (self::FORBIDDEN_SYNONYMS as $forbiddenType) {
             if (str_contains($match, $forbiddenType)) {
-                $this->messages[] = ErrorHelper::format(self::ERROR_MESSAGE,
-                    "$forbiddenType in $match",);
+                $this->messages[] = ErrorHelper::format(
+                    self::ERROR_MESSAGE,
+                    "$forbiddenType in $match"
+                );
             }
         }
     }

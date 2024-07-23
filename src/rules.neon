@@ -34,7 +34,10 @@ conditionalTags:
        phpstan.rules.rule: %architectureRules.architectureRules%
    ArchitectureStandards\Rules\Architecture\ForbidCallbackWithoutReturnTypeRule:
        phpstan.rules.rule: %architectureRules.architectureRules%
-
+   ArchitectureStandards\Rules\Laravel\ForbidBlankAndFilledRule:
+       phpstan.rules.rule: %architectureRules.architectureRules%
+   ArchitectureStandards\Rules\Documentation\ForbidSuppressAllPhpmdWarningsRule:
+       phpstan.rules.rule: %architectureRules.architectureRules%
 services:
     -
         class: ArchitectureStandards\Rules\Functions\ForbidIsEmptyRule
@@ -56,3 +59,7 @@ services:
         class: ArchitectureStandards\Rules\Documentation\ForbidUndocumentedTagsRule
     -
         class: ArchitectureStandards\Rules\Architecture\ForbidCallbackWithoutReturnTypeRule
+    -
+        class: ArchitectureStandards\Rules\Laravel\ForbidBlankAndFilledRule
+    -
+        class: ArchitectureStandards\Rules\Documentation\ForbidSuppressAllPhpmdWarningsRule

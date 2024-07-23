@@ -32,7 +32,7 @@ class ForbidElvisOperatorRule implements Rule
     }
 
     /**
-     * @param Ternary $node
+     * @param Ternary $node                     Ternary implements the Node interface.
      * @return array{0: RuleError} | array{}
      * @throws ShouldNotHappenException
      */
