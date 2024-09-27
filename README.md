@@ -56,3 +56,6 @@ parameters:
 - The PHPDoc standard (PSR-19) is a work in progress, but can be found at:
 https://github.com/php-fig/fig-standards/blob/master/proposed/phpdoc-tags.md
 
+### todo
+- no switch statements, but always match
+- not more than one elseif -> refactor to match

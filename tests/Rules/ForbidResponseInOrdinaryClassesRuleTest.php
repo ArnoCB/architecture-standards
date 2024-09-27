@@ -5,6 +5,5 @@ it('forbids the use of a http-response type in ordinary classes', function (): v
         'vendor/bin/phpstan analyse tests/ExampleScripts/OrdinaryClassWithHttpResponse.php --level 0 --error-format raw 2>&1'
     );
 
-    expect($output)
-        ->toContain('must not return a response type Illuminate\Http\Response. Wrong class type.');
+    expect($output)->toContain('must not return a response type Illuminate\Http\Response. Wrong class type.');
 });

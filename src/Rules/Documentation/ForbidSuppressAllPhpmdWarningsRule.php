@@ -23,8 +23,6 @@ class ForbidSuppressAllPhpmdWarningsRule implements Rule
 
     public function processNode(Node $node, Scope $scope): array
     {
-
-
         return $node->getDocComment() !== null
                && (str_contains($node->getDocComment()->getText(), '@SuppressWarnings("PHPMD")')
                    || str_contains($node->getDocComment()->getText(), "@SuppressWarnings('PHPMD')"))
