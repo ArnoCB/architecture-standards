@@ -2,20 +2,15 @@
 
 namespace ArchitectureStandards\Rules\Documentation;
 
-use ArchitectureStandards\Helpers\ErrorHelper;
-
+use ArchitectureStandards\Rules\AbstractBaseRule;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 use PHPStan\ShouldNotHappenException;
 
-/**
- * @implements Rule<Node>
- */
-class ForbidSuppressAllPhpmdWarningsRule implements Rule
+class ForbidSuppressAllPhpmdWarningsRule extends AbstractBaseRule
 {
-    private const ERROR_MESSAGE = 'The use of @SuppressWarnings("PHPMD") is forbidden.';
+    protected const ERROR_MESSAGE = 'The use of @SuppressWarnings("PHPMD") is forbidden.';
 
     /**
      * @return array<RuleError>
@@ -28,7 +23,7 @@ class ForbidSuppressAllPhpmdWarningsRule implements Rule
         return $node->getDocComment() !== null
                && (str_contains($node->getDocComment()->getText(), '@SuppressWarnings("PHPMD")')
                    || str_contains($node->getDocComment()->getText(), "@SuppressWarnings('PHPMD')"))
-            ? [ErrorHelper::format(self::ERROR_MESSAGE)]
+            ? [$this->format()]
             : [];
     }
 

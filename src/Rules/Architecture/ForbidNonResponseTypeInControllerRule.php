@@ -4,27 +4,23 @@ declare(strict_types=1);
 
 namespace ArchitectureStandards\Rules\Architecture;
 
-use ArchitectureStandards\Helpers\ErrorHelper;
+use ArchitectureStandards\Rules\AbstractBaseRule;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
 use PHPStan\Reflection\ClassReflection;
-use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 use PHPStan\ShouldNotHappenException;
 use ArchitectureStandards\Traits\HasHttpResponse;
 use ArchitectureStandards\Traits\WithClassTypeChecks;
 
-/**
- * @implements Rule<ClassMethod>
- */
-class ForbidNonResponseTypeInControllerRule implements Rule
+class ForbidNonResponseTypeInControllerRule extends AbstractBaseRule
 {
     use HasHttpResponse, WithClassTypeChecks;
 
-    private const ERROR_MESSAGE = 'Method %s in %s must return a valid response type.';
+    protected const ERROR_MESSAGE = 'Method %s in %s must return a valid response type.';
 
     public function getNodeType(): string
     {
@@ -53,7 +49,7 @@ class ForbidNonResponseTypeInControllerRule implements Rule
                     || ($returnType instanceof Name && !$this->isValidResponse($returnType->toString()));
 
         return $hasError
-            ? [ErrorHelper::format(self::ERROR_MESSAGE, $node->name->name, $classReflection->getName())]
+            ? [$this->format($node->name->name, $classReflection->getName())]
             : [];
     }
 }

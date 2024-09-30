@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace ArchitectureStandards\Rules\Documentation;
 
-use ArchitectureStandards\Helpers\ArrayHelper;
-use ArchitectureStandards\Helpers\ErrorHelper;
+use ArchitectureStandards\Rules\AbstractBaseRule;
 use ArchitectureStandards\Traits\WithClassTypeChecks;
 use Closure;
 use phpDocumentor\Reflection\DocBlock\Tag;
@@ -13,14 +12,9 @@ use phpDocumentor\Reflection\DocBlockFactory;
 use PhpParser\Comment\Doc;
 use PhpParser\Node;
 use PHPStan\Analyser\Scope;
-use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
-use PHPStan\ShouldNotHappenException;
 
-/**
- * @implements Rule<Node>
- */
-class ForbidUndocumentedTagsRule implements Rule
+class ForbidUndocumentedTagsRule extends AbstractBaseRule
 {
     /**
      * This is a list of known PHPDoc tags from PSR-19, the PHPDoc reference and some unofficial tags.
@@ -102,9 +96,9 @@ class ForbidUndocumentedTagsRule implements Rule
             return [];
         }
 
-        return ArrayHelper::filterNullAndReindex(
-            array_map(self::giveErrorIfUnknownTagClosure(), $this->getTags($docComment))
-        );
+        $tagErrorArray = array_map($this->giveErrorIfUnknownTagClosure(), $this->getTags($docComment));
+
+        return array_values(array_filter($tagErrorArray));
     }
 
     /**
@@ -121,10 +115,10 @@ class ForbidUndocumentedTagsRule implements Rule
     /**
      * @return Closure
      */
-    public static function giveErrorIfUnknownTagClosure(): Closure
+    public function giveErrorIfUnknownTagClosure(): Closure
     {
-        return static fn (string $tag): ?RuleError => !in_array($tag, self::KNOWN_TAGS, true)
-            ? ErrorHelper::format(self::ERROR_MESSAGE, "@$tag")
+        return fn (string $tag): ?RuleError => !in_array($tag, self::KNOWN_TAGS, true)
+            ? $this->format("@$tag")
             : null;
     }
 }

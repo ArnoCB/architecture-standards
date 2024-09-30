@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace ArchitectureStandards\Rules\Operators;
 
-use ArchitectureStandards\Helpers\ErrorHelper;
+use ArchitectureStandards\Rules\AbstractBaseRule;
 use PhpParser\Node;
 use PhpParser\Node\Expr\Ternary;
 use PHPStan\Analyser\Scope;
-use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 use PHPStan\ShouldNotHappenException;
 
@@ -19,12 +18,10 @@ use PHPStan\ShouldNotHappenException;
  * ```php
  * $value = $value ?: 'default';
  * ```
- *
- * @implements Rule<Ternary>
  */
-class ForbidElvisOperatorRule implements Rule
+class ForbidElvisOperatorRule extends AbstractBaseRule
 {
-    private const ERROR_MESSAGE = 'Use of the Elvis operator is forbidden.';
+    protected const ERROR_MESSAGE = 'Use of the Elvis operator is forbidden.';
 
     public function getNodeType(): string
     {
@@ -41,7 +38,7 @@ class ForbidElvisOperatorRule implements Rule
     public function processNode(Node $node, Scope $scope): array
     {
         return $node->if === null
-            ? [ErrorHelper::format(self::ERROR_MESSAGE)]
+            ? [$this->format()]
             : [];
     }
 }

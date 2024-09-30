@@ -4,32 +4,29 @@ declare(strict_types=1);
 
 namespace ArchitectureStandards\Rules\Documentation;
 
-use ArchitectureStandards\Helpers\ErrorHelper;
+use ArchitectureStandards\Rules\AbstractBaseRule;
 use PhpParser\Node;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
-use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 use PHPStan\ShouldNotHappenException;
 
 /**
  * The use of primitive type synonyms is forbidden, because although they are valid in PHP, they don't
  * work in phpdoc type hints. This would lead to confusion.
- *
- * @implements Rule<ClassMethod>
  */
-class ForbidPrimitiveTypeSynonymsRule implements Rule
+class ForbidPrimitiveTypeSynonymsRule extends AbstractBaseRule
 {
-    public const ERROR_MESSAGE = 'Use of primitive type synonym %s is forbidden.';
+    protected const ERROR_MESSAGE = 'Use of primitive type synonym %s is forbidden.';
 
-    public const FORBIDDEN_SYNONYMS = [
+    private const FORBIDDEN_SYNONYMS = [
         'boolean',
         'integer',
         'real',
         'double'
     ];
 
-    public const REGEX_FOR_PHPDOC_TAGS = [
+    private const REGEX_FOR_PHPDOC_TAGS = [
         'param'  => '/@param\s+(\S+)\s+\$(\S+)/',
         'return' => '/@return\s+(\S+)/',
     ];
@@ -97,7 +94,7 @@ class ForbidPrimitiveTypeSynonymsRule implements Rule
     {
         foreach (self::FORBIDDEN_SYNONYMS as $forbiddenType) {
             if (str_contains($match, $forbiddenType)) {
-                $this->messages[] = ErrorHelper::format(
+                $this->messages[] = $this->format(
                     self::ERROR_MESSAGE,
                     "$forbiddenType in $match"
                 );
@@ -111,7 +108,7 @@ class ForbidPrimitiveTypeSynonymsRule implements Rule
     private function checkPrimitiveType(string $match): void
     {
         if (in_array($match, self::FORBIDDEN_SYNONYMS)) {
-            $this->messages[] = ErrorHelper::format(self::ERROR_MESSAGE, $match);
+            $this->messages[] = $this->format($match);
         }
     }
 }

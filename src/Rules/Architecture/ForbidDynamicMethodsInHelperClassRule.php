@@ -4,15 +4,13 @@ declare(strict_types=1);
 
 namespace ArchitectureStandards\Rules\Architecture;
 
-use ArchitectureStandards\Helpers\ArrayHelper;
-use ArchitectureStandards\Helpers\ErrorHelper;
+use ArchitectureStandards\Rules\AbstractBaseRule;
 use Closure;
 use PhpParser\Node;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\Class_;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
-use PHPStan\Rules\Rule;
 use PHPStan\Rules\RuleError;
 use PHPStan\ShouldNotHappenException;
 use ArchitectureStandards\Traits\HasHttpResponse;
@@ -20,14 +18,12 @@ use ArchitectureStandards\Traits\WithClassTypeChecks;
 
 /**
  * Helper classes must have just static methods and therefore no state.
- *
- * @implements Rule<Class_>
  */
-class ForbidDynamicMethodsInHelperClassRule implements Rule
+class ForbidDynamicMethodsInHelperClassRule extends AbstractBaseRule
 {
     use HasHttpResponse, WithClassTypeChecks;
 
-    private const ERROR_MESSAGE = "Helper class %s must not have dynamic methods.";
+    protected const ERROR_MESSAGE = "Helper class %s must not have dynamic methods.";
 
     public function getNodeType(): string
     {
@@ -35,7 +31,7 @@ class ForbidDynamicMethodsInHelperClassRule implements Rule
     }
 
     /**
-     * @return array<int<0, max>, RuleError> | array{}
+     * @return array<RuleError>
      * @throws ShouldNotHappenException
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter) $scope
@@ -52,12 +48,9 @@ class ForbidDynamicMethodsInHelperClassRule implements Rule
 
         $nodeName = $node->name->name;
 
-        return ArrayHelper::filterNullAndReindex(
-            array_map(
-                $this->getRuleErrorForNonStatic($nodeName),
-                $node->getMethods()
-            )
-        );
+        $errorArray = array_map($this->getRuleErrorForNonStatic($nodeName), $node->getMethods());
+
+        return array_values(array_filter($errorArray));
     }
 
     /**
@@ -66,10 +59,10 @@ class ForbidDynamicMethodsInHelperClassRule implements Rule
      */
     public function getRuleErrorForNonStatic(string $nodeName): Closure
     {
-        return static fn(
+        return fn(
             ClassMethod $method
         ): ?RuleError => !$method->isStatic()
-            ? ErrorHelper::formatWithLine(self::ERROR_MESSAGE, $method->getLine(), $nodeName)
+            ? $this->formatWithLine($method->getLine(), $nodeName)
             : null;
     }
 }
