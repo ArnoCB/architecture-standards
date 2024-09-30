@@ -23,6 +23,7 @@ class ForbidIsNullRule extends AbstractBaseRule
 
     /**
      * @return array{0: RuleError} | array{}
+     *
      * @throws ShouldNotHappenException
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter) $scope

@@ -25,6 +25,7 @@ class ForbidIsEmptyRule extends AbstractBaseRule
 
     /**
      * @return array{0: RuleError}
+     *
      * @throws ShouldNotHappenException
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter) $scope

@@ -31,6 +31,7 @@ class ForbidElvisOperatorRule extends AbstractBaseRule
     /**
      * @param  Ternary $node Ternary implements the Node interface.
      * @return array{0: RuleError} | array{}
+     *
      * @throws ShouldNotHappenException
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter) $scope

@@ -15,7 +15,8 @@ class ForbidSuppressAllPhpmdWarningsRule extends AbstractBaseRule
     /**
      * @return array<RuleError>
      *
-     * @throws                                        ShouldNotHappenException
+     * @throws ShouldNotHappenException
+     *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter) $scope
      */
     public function processNode(Node $node, Scope $scope): array

@@ -29,6 +29,7 @@ class ForbidNonResponseTypeInControllerRule extends AbstractBaseRule
 
     /**
      * @return array{0: RuleError} | array{}
+     *
      * @throws ShouldNotHappenException
      */
     public function processNode(Node $node, Scope $scope): array
