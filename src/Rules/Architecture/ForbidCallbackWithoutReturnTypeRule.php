@@ -24,11 +24,13 @@ class ForbidCallbackWithoutReturnTypeRule implements Rule
     }
 
     /**
-     * @param Node $node
-     * @param Scope $scope
+     * @param  Node  $node
+     * @param  Scope $scope
      * @return array{0: RuleError} | array{}
      *
      * @throws ShouldNotHappenException
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter) $scope
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -37,4 +39,3 @@ class ForbidCallbackWithoutReturnTypeRule implements Rule
             : [];
     }
 }
-

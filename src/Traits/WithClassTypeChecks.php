@@ -21,7 +21,7 @@ trait WithClassTypeChecks
     }
 
     /**
-     * @param class-string $class
+     * @param class-string        $class
      * @param array<class-string> $classNames
      */
     public static function isInstanceOfClasses(object|string $class, array $classNames): bool

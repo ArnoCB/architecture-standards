@@ -47,6 +47,8 @@ class ForbidPrimitiveTypeSynonymsRule implements Rule
     /**
      * @return array<RuleError>
      * @throws ShouldNotHappenException
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter) $scope
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -72,7 +74,7 @@ class ForbidPrimitiveTypeSynonymsRule implements Rule
     }
 
     /**
-     * @param array<array<string>> $matches
+     * @param  array<array<string>> $matches
      * @return void
      * @throws ShouldNotHappenException
      */

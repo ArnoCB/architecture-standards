@@ -33,8 +33,8 @@ class ForbidResponseInClassesRule implements Rule
     }
 
     /**
-     * @param ClassMethod $node
-     * @param Scope $scope
+     * @param  ClassMethod $node
+     * @param  Scope       $scope
      * @return array{0: RuleError} | array{}
      * @throws ShouldNotHappenException
      */
@@ -44,7 +44,8 @@ class ForbidResponseInClassesRule implements Rule
 
         if (!$classReflection instanceof ClassReflection
             || $this->isControllerClass($classReflection)
-            || $this->isMiddlewareClass($classReflection)) {
+            || $this->isMiddlewareClass($classReflection)
+        ) {
             return [];
         }
 
@@ -52,7 +53,10 @@ class ForbidResponseInClassesRule implements Rule
 
         return $returnType instanceof Name && $this->isValidResponse($returnType->toString())
             ? [ErrorHelper::format(
-                self::ERROR_MESSAGE, $node->name->name, $classReflection->getName(), $returnType->toString()
+                self::ERROR_MESSAGE,
+                $node->name->name,
+                $classReflection->getName(),
+                $returnType->toString()
             )]
             : [];
     }

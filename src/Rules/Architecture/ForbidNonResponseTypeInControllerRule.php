@@ -42,8 +42,8 @@ class ForbidNonResponseTypeInControllerRule implements Rule
         if (!$classReflection instanceof ClassReflection
             || !property_exists($node, 'name')
             || !$this->isControllerClass($classReflection)
-            || !method_exists($node, 'getReturnType')) {
-
+            || !method_exists($node, 'getReturnType')
+        ) {
             return [];
         }
 

@@ -32,9 +32,11 @@ class ForbidElvisOperatorRule implements Rule
     }
 
     /**
-     * @param Ternary $node                     Ternary implements the Node interface.
+     * @param  Ternary $node Ternary implements the Node interface.
      * @return array{0: RuleError} | array{}
      * @throws ShouldNotHappenException
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter) $scope
      */
     public function processNode(Node $node, Scope $scope): array
     {

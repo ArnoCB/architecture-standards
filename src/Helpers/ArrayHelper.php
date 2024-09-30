@@ -8,8 +8,8 @@ class ArrayHelper
 {
     /**
      * @template T
-     * @param array<int|string, ?T> $array
-     * @return array<T>
+     * @param    array<int|string, ?T> $array
+     * @return   array<T>
      */
     public static function filterNullAndReindex(array $array): array
     {

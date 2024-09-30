@@ -56,6 +56,12 @@ parameters:
 - The PHPDoc standard (PSR-19) is a work in progress, but can be found at:
 https://github.com/php-fig/fig-standards/blob/master/proposed/phpdoc-tags.md
 
+## setup
+- Since this is a PHPStan extension, PHPStan is a normal requirement
+- Since we want to create rules for Laravel, but the package doesn't necessarily require Laravel, this is a dev requirement
+
 ### todo
 - no switch statements, but always match
 - not more than one elseif -> refactor to match
+- reconsider use of dynamic over static methods
+- `name` is a private property of `Node`, so look at the PHPStan api to look for an alternative

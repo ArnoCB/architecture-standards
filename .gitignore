@@ -5,6 +5,7 @@
 /database
 /node_modules
 /.phpunit.cache
+/phpstan-extracted/
 /public
 /resources
 /routes
@@ -21,3 +22,4 @@ package-lock.json
 package.json
 vite.config.js
 tags
+

@@ -2,7 +2,6 @@
 
 namespace Tests\ExampleScripts;
 
-
 class ClassWithWrongPhpDocType
 {
     /**

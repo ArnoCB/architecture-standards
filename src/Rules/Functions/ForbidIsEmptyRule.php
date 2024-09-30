@@ -29,6 +29,8 @@ class ForbidIsEmptyRule implements Rule
     /**
      * @return array{0: RuleError}
      * @throws ShouldNotHappenException
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter) $scope
      */
     public function processNode(Node $node, Scope $scope): array
     {

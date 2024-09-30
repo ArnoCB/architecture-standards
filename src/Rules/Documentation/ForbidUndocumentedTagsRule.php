@@ -22,8 +22,6 @@ use PHPStan\ShouldNotHappenException;
  */
 class ForbidUndocumentedTagsRule implements Rule
 {
-    use WithClassTypeChecks;
-
     /**
      * This is a list of known PHPDoc tags from PSR-19, the PHPDoc reference and some unofficial tags.
      *
@@ -61,6 +59,8 @@ class ForbidUndocumentedTagsRule implements Rule
         'extends',
         'implements',
         'phpstan-ignore-next-line',
+        'phpstan-param',
+        'phpstan-return',
         'phpstan-type',
         'template',
         // ide (PhpStorm)
@@ -72,6 +72,8 @@ class ForbidUndocumentedTagsRule implements Rule
         'codeCoverageIgnore',
     ];
 
+    use WithClassTypeChecks;
+
     public const ERROR_MESSAGE = 'Unknown tag %s in PHPDoc.';
 
     public function getNodeType(): string
@@ -81,17 +83,22 @@ class ForbidUndocumentedTagsRule implements Rule
 
     /**
      * @return array<RuleError>
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter) $scope
      */
     public function processNode(Node $node, Scope $scope): array
     {
         $docComment = $node->getDocComment();
 
-        if ($docComment === null || !self::isInstanceOfClasses($node, [
+        if ($docComment === null || !self::isInstanceOfClasses(
+            $node,
+            [
                 'PhpParser\Node\Stmt\ClassLike',
                 'PhpParser\Node\Stmt\Function_',
                 'PhpParser\Node\Stmt\ClassMethod'
-            ])) {
-
+            ]
+        )
+        ) {
             return [];
         }
 

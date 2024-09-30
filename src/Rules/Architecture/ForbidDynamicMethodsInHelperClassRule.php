@@ -37,14 +37,16 @@ class ForbidDynamicMethodsInHelperClassRule implements Rule
     /**
      * @return array<int<0, max>, RuleError> | array{}
      * @throws ShouldNotHappenException
+     *
+     * @SuppressWarnings(PHPMD.UnusedFormalParameter) $scope
      */
     public function processNode(Node $node, Scope $scope): array
     {
         if (!property_exists($node, 'name')
             || !$node->name instanceof Identifier
             || !method_exists($node, 'getMethods')
-            || !str_ends_with($node->name->name, 'Helper')) {
-
+            || !str_ends_with($node->name->name, 'Helper')
+        ) {
             return [];
         }
 
@@ -59,7 +61,7 @@ class ForbidDynamicMethodsInHelperClassRule implements Rule
     }
 
     /**
-     * @param string $nodeName
+     * @param  string $nodeName
      * @return Closure
      */
     public function getRuleErrorForNonStatic(string $nodeName): Closure
