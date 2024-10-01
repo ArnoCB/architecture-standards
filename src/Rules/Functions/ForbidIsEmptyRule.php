@@ -32,6 +32,6 @@ class ForbidIsEmptyRule extends AbstractBaseRule
      */
     public function processNode(Node $node, Scope $scope): array
     {
-        return [$this->format()];
+        return [$this->formattedError()];
     }
 }

@@ -50,7 +50,7 @@ class ForbidResponseInClassesRule extends AbstractBaseRule
         $returnType = $node->getReturnType();
 
         return $returnType instanceof Name && $this->isValidResponse($returnType->toString())
-            ? [$this->format($node->name->name, $classReflection->getName(), $returnType->toString())]
+            ? [$this->formattedError($node->name->name, $classReflection->getName(), $returnType->toString())]
             : [];
     }
 }

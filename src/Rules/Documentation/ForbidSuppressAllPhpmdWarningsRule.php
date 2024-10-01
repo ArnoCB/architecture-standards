@@ -24,7 +24,7 @@ class ForbidSuppressAllPhpmdWarningsRule extends AbstractBaseRule
         return $node->getDocComment() !== null
                && (str_contains($node->getDocComment()->getText(), '@SuppressWarnings("PHPMD")')
                    || str_contains($node->getDocComment()->getText(), "@SuppressWarnings('PHPMD')"))
-            ? [$this->format()]
+            ? [$this->formattedError()]
             : [];
     }
 

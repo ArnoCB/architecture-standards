@@ -39,7 +39,7 @@ class ForbidElvisOperatorRule extends AbstractBaseRule
     public function processNode(Node $node, Scope $scope): array
     {
         return $node->if === null
-            ? [$this->format()]
+            ? [$this->formattedError()]
             : [];
     }
 }

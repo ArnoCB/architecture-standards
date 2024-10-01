@@ -31,7 +31,7 @@ class ForbidIsNullRule extends AbstractBaseRule
     public function processNode(Node $node, Scope $scope): array
     {
         return $node instanceof FuncCall && $node->name instanceof Name && $node->name->toString() === 'is_null'
-            ? [$this->format()]
+            ? [$this->formattedError()]
             : [];
     }
 }

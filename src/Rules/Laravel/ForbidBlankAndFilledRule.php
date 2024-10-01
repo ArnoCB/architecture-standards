@@ -30,7 +30,7 @@ class ForbidBlankAndFilledRule extends AbstractBaseRule
     {
         return $node instanceof FuncCall && $node->name instanceof Name
                && ($node->name->toString() === 'filled' || $node->name->toString() === 'blank')
-            ? [$this->format()]
+            ? [$this->formattedError()]
             : [];
     }
 }

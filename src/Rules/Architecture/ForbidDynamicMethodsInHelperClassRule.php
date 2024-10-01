@@ -62,7 +62,7 @@ class ForbidDynamicMethodsInHelperClassRule extends AbstractBaseRule
         return fn(
             ClassMethod $method
         ): ?RuleError => !$method->isStatic()
-            ? $this->formatWithLine($method->getLine(), $nodeName)
+            ? $this->formattedErrorWithLine($method->getLine(), $nodeName)
             : null;
     }
 }

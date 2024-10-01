@@ -45,6 +45,12 @@
         }
     },
     "scripts": {
+        "check": [
+            "@phpcs",
+            "@phpstan",
+            "@phpmd",
+            "@test"
+        ],
         "phpcbf": "vendor/bin/phpcbf",
         "phpcs": "vendor/bin/phpcs src",
         "phpmd": "vendor/bin/phpmd src text phpmd.xml",

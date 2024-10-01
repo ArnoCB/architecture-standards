@@ -94,10 +94,7 @@ class ForbidPrimitiveTypeSynonymsRule extends AbstractBaseRule
     {
         foreach (self::FORBIDDEN_SYNONYMS as $forbiddenType) {
             if (str_contains($match, $forbiddenType)) {
-                $this->messages[] = $this->format(
-                    self::ERROR_MESSAGE,
-                    "$forbiddenType in $match"
-                );
+                $this->messages[] = $this->formattedError("$forbiddenType in $match");
             }
         }
     }
@@ -108,7 +105,7 @@ class ForbidPrimitiveTypeSynonymsRule extends AbstractBaseRule
     private function checkPrimitiveType(string $match): void
     {
         if (in_array($match, self::FORBIDDEN_SYNONYMS)) {
-            $this->messages[] = $this->format($match);
+            $this->messages[] = $this->formattedError($match);
         }
     }
 }

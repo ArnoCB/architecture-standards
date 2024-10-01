@@ -50,7 +50,7 @@ class ForbidNonResponseTypeInControllerRule extends AbstractBaseRule
                     || ($returnType instanceof Name && !$this->isValidResponse($returnType->toString()));
 
         return $hasError
-            ? [$this->format($node->name->name, $classReflection->getName())]
+            ? [$this->formattedError($node->name->name, $classReflection->getName())]
             : [];
     }
 }

@@ -55,6 +55,7 @@ class ForbidUndocumentedTagsRule extends AbstractBaseRule
         'phpstan-ignore-next-line',
         'phpstan-param',
         'phpstan-return',
+        'phpstan-template',
         'phpstan-type',
         'template',
         // ide (PhpStorm)
@@ -118,7 +119,7 @@ class ForbidUndocumentedTagsRule extends AbstractBaseRule
     public function giveErrorIfUnknownTagClosure(): Closure
     {
         return fn (string $tag): ?RuleError => !in_array($tag, self::KNOWN_TAGS, true)
-            ? $this->format("@$tag")
+            ? $this->formattedError("@$tag")
             : null;
     }
 }

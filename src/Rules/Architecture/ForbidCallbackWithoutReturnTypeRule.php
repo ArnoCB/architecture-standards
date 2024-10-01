@@ -30,8 +30,13 @@ class ForbidCallbackWithoutReturnTypeRule extends AbstractBaseRule
      */
     public function processNode(Node $node, Scope $scope): array
     {
+        // check if it is an anonymous function
+        if (!$node instanceof Node\Expr\ArrowFunction) {
+            return [];
+        }
+
         return property_exists($node, 'returnType') && $node->returnType === null
-            ? [$this->formatWithLine($node->getLine())]
+            ? [$this->formattedErrorWithLine($node->getLine())]
             : [];
     }
 }
