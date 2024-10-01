@@ -18,7 +18,7 @@ class ForbidBlankAndFilledRule extends AbstractBaseRule
 
     public function getNodeType(): string
     {
-        return Node\Expr\FuncCall::class;
+        return FuncCall::class;
     }
 
     /**

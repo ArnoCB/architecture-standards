@@ -24,7 +24,7 @@ trait WithClassTypeChecks
      * @param class-string        $class
      * @param array<class-string> $classNames
      */
-    public static function isInstanceOfClasses(object|string $class, array $classNames): bool
+    public function isInstanceOfClasses(object|string $class, array $classNames): bool
     {
         return count(
             array_filter($classNames, static fn (object|string $className): bool => $class instanceof $className)

@@ -85,7 +85,7 @@ class ForbidUndocumentedTagsRule extends AbstractBaseRule
     {
         $docComment = $node->getDocComment();
 
-        if ($docComment === null || !self::isInstanceOfClasses(
+        if ($docComment === null || !$this->isInstanceOfClasses(
             $node,
             [
                 'PhpParser\Node\Stmt\ClassLike',
