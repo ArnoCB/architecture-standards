@@ -6,6 +6,7 @@ namespace ArchitectureStandards\Rules\Architecture;
 
 use ArchitectureStandards\Rules\AbstractBaseRule;
 use PhpParser\Node;
+use PhpParser\Node\ComplexType;
 use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Name;
@@ -27,6 +28,7 @@ class ForbidNonResponseTypeInControllerRule extends AbstractBaseRule
     }
 
     /**
+     * @param  ClassMethod $node
      * @return array{0: RuleError} | array{}
      *
      * @throws ShouldNotHappenException
@@ -34,8 +36,6 @@ class ForbidNonResponseTypeInControllerRule extends AbstractBaseRule
     public function processNode(Node $node, Scope $scope): array
     {
         $classReflection = $scope->getClassReflection();
-
-        /** @var ClassMethod $node  */
         $returnType = $node->getReturnType();
 
         // There are other rules to handle the absence of a return type
@@ -47,15 +47,24 @@ class ForbidNonResponseTypeInControllerRule extends AbstractBaseRule
             return [];
         }
 
-        // Identifier is a primitive type, so this cannot a response type
-        $hasError = match (get_class($returnType)) {
-            Identifier::class => true,
-            Name::class => !$this->isValidResponse($returnType->toString()),
-            default => false,
-        };
-
-        return $hasError
+        return $this->hasError($returnType)
             ? [$this->formattedError($node->name->name, $classReflection->getName())]
             : [];
+    }
+
+    /**
+     * Identifier is a primitive type, so this cannot a response type
+     * ComplexType and Unions are not yet implemented
+     *
+     * @param ComplexType|Identifier|Name $returnType
+     * @return bool
+     */
+    public function hasError(ComplexType|Identifier|Name $returnType): bool
+    {
+        return match (true) {
+            $returnType instanceof Identifier => true,
+            $returnType instanceof Name => !$this->isValidResponse($returnType->toString()),
+            $returnType instanceof ComplexType => false,
+        };
     }
 }

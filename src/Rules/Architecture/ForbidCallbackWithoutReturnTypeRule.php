@@ -21,8 +21,6 @@ class ForbidCallbackWithoutReturnTypeRule extends AbstractBaseRule
     }
 
     /**
-     * @param  Node  $node
-     * @param  Scope $scope
      * @return array{0: RuleError} | array{}
      *
      * @throws ShouldNotHappenException
