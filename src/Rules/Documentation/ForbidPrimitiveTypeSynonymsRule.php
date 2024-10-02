@@ -34,7 +34,7 @@ class ForbidPrimitiveTypeSynonymsRule extends AbstractBaseRule
     /**
      * @var array<RuleError>
      */
-    public array $messages = [];
+    private array $messages = [];
 
     public function getNodeType(): string
     {

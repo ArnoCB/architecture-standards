@@ -21,7 +21,7 @@ class ForbidUndocumentedTagsRule extends AbstractBaseRule
      *
      * @var array<int<0, max>, string>
      */
-    public const KNOWN_TAGS = [
+    private const KNOWN_TAGS = [
         'api',
         'author',
         'copyright',
@@ -70,7 +70,7 @@ class ForbidUndocumentedTagsRule extends AbstractBaseRule
 
     use WithClassTypeChecks;
 
-    public const ERROR_MESSAGE = 'Unknown tag %s in PHPDoc.';
+    protected const ERROR_MESSAGE = 'Unknown tag %s in PHPDoc.';
 
     public function getNodeType(): string
     {
