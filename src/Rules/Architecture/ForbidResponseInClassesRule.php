@@ -9,7 +9,6 @@ use PhpParser\Node;
 use PhpParser\Node\Name;
 use PhpParser\Node\Stmt\ClassMethod;
 use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ClassReflection;
 use PHPStan\Rules\RuleError;
 use PHPStan\ShouldNotHappenException;
 use ArchitectureStandards\Traits\HasHttpResponse;
@@ -40,7 +39,7 @@ class ForbidResponseInClassesRule extends AbstractBaseRule
     {
         $classReflection = $scope->getClassReflection();
 
-        if (!$classReflection instanceof ClassReflection
+        if ($classReflection === null
             || $this->isControllerClass($classReflection)
             || $this->isMiddlewareClass($classReflection)
         ) {

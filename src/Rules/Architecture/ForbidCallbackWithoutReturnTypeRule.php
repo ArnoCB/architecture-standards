@@ -17,7 +17,7 @@ class ForbidCallbackWithoutReturnTypeRule extends AbstractBaseRule
 
     public function getNodeType(): string
     {
-        return Node::class;
+        return ArrowFunction::class;
     }
 
     /**
@@ -31,11 +31,6 @@ class ForbidCallbackWithoutReturnTypeRule extends AbstractBaseRule
      */
     public function processNode(Node $node, Scope $scope): array
     {
-        // check if it is an anonymous function
-        if (!$node instanceof ArrowFunction) {
-            return [];
-        }
-
         return property_exists($node, 'returnType') && $node->returnType === null
             ? [$this->formattedErrorWithLine($node->getLine())]
             : [];

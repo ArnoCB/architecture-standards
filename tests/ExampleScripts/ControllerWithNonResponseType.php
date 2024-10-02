@@ -22,7 +22,11 @@ class ControllerWithNonResponseType extends Controller
 
     public function index3(): JsonResponse
     {
-        /** @phpstan-ignore-next-line  */
+       return response()->json(['Hello World']);
+    }
+
+    public function index4(): JsonResponse|string
+    {
        return response()->json(['Hello World']);
     }
 }

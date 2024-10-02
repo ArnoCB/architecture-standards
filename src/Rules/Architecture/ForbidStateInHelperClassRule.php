@@ -6,9 +6,8 @@ namespace ArchitectureStandards\Rules\Architecture;
 
 use ArchitectureStandards\Rules\AbstractBaseRule;
 use PhpParser\Node;
-use PhpParser\Node\Identifier;
-use PhpParser\Node\Stmt\Class_;
 use PHPStan\Analyser\Scope;
+use PHPStan\Node\ClassPropertyNode;
 use PHPStan\Rules\RuleError;
 use PHPStan\ShouldNotHappenException;
 use ArchitectureStandards\Traits\HasHttpResponse;
@@ -25,25 +24,24 @@ class ForbidStateInHelperClassRule extends AbstractBaseRule
 
     public function getNodeType(): string
     {
-        return Class_::class;
+        return ClassPropertyNode::class;
     }
 
     /**
      * @return array{0: RuleError} | array{}
-     * @throws ShouldNotHappenException
      *
-     * @SuppressWarnings(PHPMD.UnusedFormalParameter) $scope
-     */
+     * @throws ShouldNotHappenException
+      */
     public function processNode(Node $node, Scope $scope): array
     {
-        if (!property_exists($node, 'name') || !method_exists($node, 'getProperties')) {
+        $classReflection = $scope->getClassReflection();
+
+        if ($classReflection === null) {
             return [];
         }
 
-        return ($node->name instanceof Identifier
-                && str_ends_with($node->name->toString(), 'Helper')
-                && count($node->getProperties()) > 0)
-            ? [$this->formattedError($node->name->toString())]
+        return $node instanceof ClassPropertyNode && str_ends_with($classReflection->getName(), 'Helper')
+            ? [$this->formattedError($classReflection->getName())]
             : [];
     }
 }

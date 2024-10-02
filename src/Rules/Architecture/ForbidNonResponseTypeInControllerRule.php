@@ -10,7 +10,6 @@ use PhpParser\Node\Identifier;
 use PhpParser\Node\Stmt\ClassMethod;
 use PhpParser\Node\Name;
 use PHPStan\Analyser\Scope;
-use PHPStan\Reflection\ClassReflection;
 use PHPStan\Rules\RuleError;
 use PHPStan\ShouldNotHappenException;
 use ArchitectureStandards\Traits\HasHttpResponse;
@@ -36,18 +35,24 @@ class ForbidNonResponseTypeInControllerRule extends AbstractBaseRule
     {
         $classReflection = $scope->getClassReflection();
 
-        if (!$classReflection instanceof ClassReflection
-            || !property_exists($node, 'name')
+        /** @var ClassMethod $node  */
+        $returnType = $node->getReturnType();
+
+        // There are other rules to handle the absence of a return type
+        if ($returnType === null
+            || $classReflection === null
             || !$this->isControllerClass($classReflection)
             || !method_exists($node, 'getReturnType')
         ) {
             return [];
         }
 
-        $returnType = $node->getReturnType();
-
-        $hasError = $returnType instanceof Identifier
-                    || ($returnType instanceof Name && !$this->isValidResponse($returnType->toString()));
+        // Identifier is a primitive type, so this cannot a response type
+        $hasError = match (get_class($returnType)) {
+            Identifier::class => true,
+            Name::class => !$this->isValidResponse($returnType->toString()),
+            default => false,
+        };
 
         return $hasError
             ? [$this->formattedError($node->name->name, $classReflection->getName())]

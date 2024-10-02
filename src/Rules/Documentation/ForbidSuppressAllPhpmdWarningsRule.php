@@ -12,6 +12,11 @@ class ForbidSuppressAllPhpmdWarningsRule extends AbstractBaseRule
 {
     protected const ERROR_MESSAGE = 'The use of @SuppressWarnings("PHPMD") is forbidden.';
 
+    public function getNodeType(): string
+    {
+        return Node::class;
+    }
+
     /**
      * @return array<RuleError>
      *
@@ -26,10 +31,5 @@ class ForbidSuppressAllPhpmdWarningsRule extends AbstractBaseRule
                    || str_contains($node->getDocComment()->getText(), "@SuppressWarnings('PHPMD')"))
             ? [$this->formattedError()]
             : [];
-    }
-
-    public function getNodeType(): string
-    {
-        return Node::class;
     }
 }
