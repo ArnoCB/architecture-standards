@@ -81,6 +81,9 @@ class ForbidUndocumentedTagsRule extends AbstractBaseRule
      * @return array<RuleError>
      *
      * @SuppressWarnings(PHPMD.UnusedFormalParameter) $scope
+     *
+     * @todo make separate Rules for all visitors, since not all phpdoc tags are allowed at each
+     *       node type anyway.
      */
     public function processNode(Node $node, Scope $scope): array
     {
@@ -106,7 +109,7 @@ class ForbidUndocumentedTagsRule extends AbstractBaseRule
     /**
      * @return array<int<0, max>, string>
      */
-    public function getTags(Doc $docComment): array
+    private function getTags(Doc $docComment): array
     {
         return array_map(
             static fn (Tag $tag): string => $tag->getName(),
@@ -117,7 +120,7 @@ class ForbidUndocumentedTagsRule extends AbstractBaseRule
     /**
      * @return Closure
      */
-    public function giveErrorIfUnknownTagClosure(): Closure
+    private function giveErrorIfUnknownTagClosure(): Closure
     {
         return fn (string $tag): ?RuleError => !in_array($tag, self::KNOWN_TAGS, true)
             ? $this->formattedError("@$tag")

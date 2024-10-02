@@ -21,6 +21,7 @@ class ForbidCallbackWithoutReturnTypeRule extends AbstractBaseRule
     }
 
     /**
+     * @param  ArrowFunction $node
      * @return array{0: RuleError} | array{}
      *
      * @throws ShouldNotHappenException
@@ -29,7 +30,7 @@ class ForbidCallbackWithoutReturnTypeRule extends AbstractBaseRule
      */
     public function processNode(Node $node, Scope $scope): array
     {
-        return property_exists($node, 'returnType') && $node->returnType === null
+        return $node->returnType === null
             ? [$this->formattedErrorWithLine($node->getLine())]
             : [];
     }

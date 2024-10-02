@@ -59,7 +59,7 @@ class ForbidNonResponseTypeInControllerRule extends AbstractBaseRule
      * @param ComplexType|Identifier|Name $returnType
      * @return bool
      */
-    public function hasError(ComplexType|Identifier|Name $returnType): bool
+    private function hasError(ComplexType|Identifier|Name $returnType): bool
     {
         return match (true) {
             $returnType instanceof Identifier => true,

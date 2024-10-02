@@ -42,6 +42,7 @@ class ForbidPrimitiveTypeSynonymsRule extends AbstractBaseRule
     }
 
     /**
+     * @param  ClassMethod $node
      * @return array<RuleError>
      * @throws ShouldNotHappenException
      *
@@ -75,7 +76,7 @@ class ForbidPrimitiveTypeSynonymsRule extends AbstractBaseRule
      * @return void
      * @throws ShouldNotHappenException
      */
-    public function findForbiddenTypes(array $matches): void
+    private function findForbiddenTypes(array $matches): void
     {
         foreach ($matches[1] as $match) {
             if (str_contains($match, '<') || str_contains($match, '{')) {
