@@ -57,6 +57,7 @@ class ForbidUndocumentedTagsRule extends AbstractBaseRule
         'phpstan-return',
         'phpstan-template',
         'phpstan-type',
+        'psalm-return',
         'template',
         // ide (PhpStorm)
         'noinspection',

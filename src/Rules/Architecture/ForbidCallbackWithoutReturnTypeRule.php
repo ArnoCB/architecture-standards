@@ -6,6 +6,7 @@ namespace ArchitectureStandards\Rules\Architecture;
 
 use ArchitectureStandards\Rules\AbstractBaseRule;
 use PhpParser\Node;
+use PhpParser\Node\Expr\ArrowFunction;
 use PHPStan\Analyser\Scope;
 use PHPStan\Rules\RuleError;
 use PHPStan\ShouldNotHappenException;
@@ -31,7 +32,7 @@ class ForbidCallbackWithoutReturnTypeRule extends AbstractBaseRule
     public function processNode(Node $node, Scope $scope): array
     {
         // check if it is an anonymous function
-        if (!$node instanceof Node\Expr\ArrowFunction) {
+        if (!$node instanceof ArrowFunction) {
             return [];
         }
 

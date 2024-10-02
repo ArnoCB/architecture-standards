@@ -24,8 +24,6 @@ conditionalTags:
        phpstan.rules.rule: %architectureRules.architectureRules%
    ArchitectureStandards\Rules\Architecture\ForbidNonResponseTypeInControllerRule:
        phpstan.rules.rule: %architectureRules.architectureRules%
-   ArchitectureStandards\Rules\Architecture\ForbidDynamicMethodsInHelperClassRule:
-          phpstan.rules.rule: %architectureRules.architectureRules%
    ArchitectureStandards\Rules\Architecture\ForbidStateInHelperClassRule:
        phpstan.rules.rule: %architectureRules.architectureRules%
    ArchitectureStandards\Rules\Documentation\ForbidPrimitiveTypeSynonymsRule:
@@ -51,8 +49,6 @@ services:
         class: ArchitectureStandards\Rules\Operators\ForbidElvisOperatorRule
     -
         class: ArchitectureStandards\Rules\Architecture\ForbidStateInHelperClassRule
-    -
-        class: ArchitectureStandards\Rules\Architecture\ForbidDynamicMethodsInHelperClassRule
     -
         class: ArchitectureStandards\Rules\Documentation\ForbidPrimitiveTypeSynonymsRule
     -

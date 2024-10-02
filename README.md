@@ -63,5 +63,4 @@ https://github.com/php-fig/fig-standards/blob/master/proposed/phpdoc-tags.md
 ### todo
 - no switch statements, but always match
 - not more than one elseif -> refactor to match
-- reconsider use of dynamic over static methods
-- `name` is a private property of `Node`, so look at the PHPStan api to look for an alternative
+- `name` is a private property of some subtypes `Node`, so look at the PHPStan api to look for an alternative

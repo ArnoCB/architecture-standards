@@ -41,9 +41,9 @@ class ForbidStateInHelperClassRule extends AbstractBaseRule
         }
 
         return ($node->name instanceof Identifier
-                && str_ends_with($node->name->name, 'Helper')
+                && str_ends_with($node->name->toString(), 'Helper')
                 && count($node->getProperties()) > 0)
-            ? [$this->formattedError($node->name->name)]
+            ? [$this->formattedError($node->name->toString())]
             : [];
     }
 }
